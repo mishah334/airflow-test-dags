@@ -1,0 +1,12 @@
+# https://github.com/psf/black#configuration-format
+[tool.black]
+exclude = '(venv|.vscode)'
+include = '\.pyi?$'
+line-length = 132
+#skip-string-normalization = true
+target-version = ['py38']
+
+[tool.pylint.messages_control]
+disable = """
+  C0301
+"""
