@@ -9,7 +9,7 @@ from airflow.decorators import (
 
 
 @dag(
-    schedule_interval="@daily",
+    schedule_interval="*/5 * * * *",
     start_date=datetime(2021, 1, 1),
     catchup=False,
     default_args={

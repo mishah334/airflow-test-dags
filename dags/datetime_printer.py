@@ -8,7 +8,7 @@ from airflow.decorators import (
 
 
 @dag(
-    schedule_interval="@daily",
+    schedule_interval="1-59/2 * * * *",
     start_date=datetime(2021, 1, 1),
     catchup=False,
     default_args={
@@ -16,18 +16,18 @@ from airflow.decorators import (
     },
     tags=["example"],
 )
-def time_printer():
+def datetime_printer():
     @task()
-    def date_printer():
+    def datetime_printer():
         """
-        Print the date and time for several minutes
+        Print the date and time for five minute.
         """
 
-        for i in range(900):
+        for i in range(300):
             print(datetime.now().strftime(f"{i=} %FT%T"))
             time.sleep(1)
 
-    date_printer()
+    datetime_printer()
 
 
-time_printer = time_printer()
+datetime_printer = datetime_printer()

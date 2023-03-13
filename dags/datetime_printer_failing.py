@@ -8,7 +8,7 @@ from airflow.decorators import (
 
 
 @dag(
-    schedule_interval="@daily",
+    schedule_interval="*/2 * * * *",
     start_date=datetime(2021, 1, 1),
     catchup=False,
     default_args={
@@ -16,20 +16,20 @@ from airflow.decorators import (
     },
     tags=["example"],
 )
-def time_printer_failing():
+def datetime_printer_failing():
     @task()
-    def date_printer_failing():
+    def datetime_printer_failing():
         """
         Print the date and time for a while then raise an exception.
         """
 
-        for i in range(20):
+        for i in range(30):
             print(datetime.now().strftime(f"{i=} %FT%T"))
             time.sleep(1)
-            if i % 10 == 0:
-                raise Exception("This is a forced exception to test exception handling.")
 
-    date_printer_failing()
+        raise Exception("This is a forced exception to test exception handling.")
+
+    datetime_printer_failing()
 
 
-time_printer_failing = time_printer_failing()
+datetime_printer_failing = datetime_printer_failing()
