@@ -27,6 +27,8 @@ def aws_basic():
         Print the date and time for five minute.
         """
 
+        print("Hello Example")
+
         s3_file = S3ListOperator(
             task_id='list_3s_files',
             bucket='airflow-logs-clnu2a51o001g01p4j71th36z',
@@ -36,7 +38,7 @@ def aws_basic():
 
         print(s3_file)
 
-    list_s3()
+    return list_s3()
 
 
 datetime_printer = aws_basic()

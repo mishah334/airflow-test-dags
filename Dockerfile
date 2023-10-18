@@ -1,3 +1,1 @@
-FROM quay.io/astronomer/astro-runtime:7.4.2
-
-label repo.url=git@github.com:danielhoherd/airflow-test-dags.git
+FROM quay.io/astronomer/astro-runtime:9.2.0
