@@ -9,9 +9,9 @@ from airflow.decorators import (
 from airflow.exceptions import AirflowNotFoundException
 from airflow.hooks.base import BaseHook
 from airflow.models.connection import Connection
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.providers.amazon.aws.hooks.secrets_manager import SecretsManagerHook
 
-aws_conn_id = "aws_conn_secret"
+aws_conn_id = "aws_conn_s3"
 
 
 @dag(
@@ -23,9 +23,9 @@ aws_conn_id = "aws_conn_secret"
     },
     tags=["aws"],
 )
-def aws_s3():
+def aws_secret_manager():
     @task()
-    def list_s3():
+    def list_secret():
         aws_conn_config = Connection(
             conn_id=aws_conn_id,
             conn_type="aws",
@@ -45,18 +45,16 @@ def aws_s3():
             session.add(aws_conn_config)
             session.commit()
 
-        s3_hook = S3Hook(aws_conn_id=aws_conn_id)
+        secret_manager_hook = SecretsManagerHook(aws_conn_id=aws_conn_id)
 
-        file_list = s3_hook.list_keys(
-            bucket_name='airflow-logs-clnu2a51o001g01p4j71th36z',
+        secret_data = secret_manager_hook.get_secret_as_dict(
+            secret_name="astrodbcreds-clnu2a51o001g01p4j71th36z"
         )
 
-        print("Listing files...")
+        print("Printing Secret...")
+        print(secret_data)
 
-        for file_name in file_list:
-            print(file_name)
-
-    list_s3()
+    list_secret()
 
 
-datetime_printer = aws_s3()
+datetime_printer = aws_secret_manager()
