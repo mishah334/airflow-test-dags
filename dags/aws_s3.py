@@ -31,9 +31,6 @@ def aws_s3():
             conn_type="aws",
             extra={
                 "region_name": "us-east-1",
-                "role_arn": "arn:aws:iam::802301079447:role/AstroDBInstance-clnu2a51o001g01p4j71th36z",
-                "assume_role_method": "assume_role_with_web_identity",
-                "assume_role_with_web_identity_federation": "file",
             }
         )
 
