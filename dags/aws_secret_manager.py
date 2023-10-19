@@ -11,7 +11,7 @@ from airflow.hooks.base import BaseHook
 from airflow.models.connection import Connection
 from airflow.providers.amazon.aws.hooks.secrets_manager import SecretsManagerHook
 
-aws_conn_id = "aws_conn_s3"
+aws_conn_id = "aws_conn_secret"
 
 
 @dag(
